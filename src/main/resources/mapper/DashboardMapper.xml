@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nebulaxy.milimilibackendmain.mapper.DashboardMapper">
+    
+    <!-- 获取待审核视频数量 -->
+    <select id="countPendingVideos" resultType="int">
+        SELECT COUNT(*) FROM content WHERE status = 0 and mc_id != 3
+    </select>
+    
+    <!-- 获取待审核帖子数量 -->
+    <select id="countPendingPosts" resultType="int">
+        SELECT COUNT(*) FROM post WHERE status = 0
+    </select>
+    
+    <!-- 获取待审核资料数量 -->
+    <select id="countPendingData" resultType="int">
+        SELECT COUNT(*) FROM content WHERE status = 0 AND mc_id = 3
+    </select>
+    
+    <!-- 获取视频总数 -->
+    <select id="countTotalVideos" resultType="int">
+        SELECT COUNT(*) FROM content WHERE mc_id != 3
+    </select>
+    
+    <!-- 获取帖子总数 -->
+    <select id="countTotalPosts" resultType="int">
+        SELECT COUNT(*) FROM post
+    </select>
+    
+    <!-- 获取资料总数 -->
+    <select id="countTotalData" resultType="int">
+        SELECT COUNT(*) FROM content WHERE mc_id = 3
+    </select>
+    
+    <!-- 获取近7天的视频数据 -->
+    <select id="getVideoDataLast7Days" resultType="java.util.Map">
+        SELECT 
+            DATE_FORMAT(upload_date, '%Y-%m-%d') as date,
+            COUNT(*) as count
+        FROM 
+            content
+        WHERE 
+            upload_date >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+            AND mc_id != 3
+        GROUP BY 
+            DATE_FORMAT(upload_date, '%Y-%m-%d')
+        ORDER BY 
+            date
+    </select>
+    
+    <!-- 获取近7天的帖子数据 -->
+    <select id="getPostDataLast7Days" resultType="java.util.Map">
+        SELECT 
+            DATE_FORMAT(updatetime, '%Y-%m-%d') as date,
+            COUNT(*) as count
+        FROM 
+            post
+        WHERE 
+            updatetime >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+        GROUP BY 
+            DATE_FORMAT(updatetime, '%Y-%m-%d')
+        ORDER BY 
+            date
+    </select>
+    
+    <!-- 获取近7天的资料数据 -->
+    <select id="getDataLast7Days" resultType="java.util.Map">
+        SELECT 
+            DATE_FORMAT(upload_date, '%Y-%m-%d') as date,
+            COUNT(*) as count
+        FROM 
+            content
+        WHERE 
+            upload_date >= DATE_SUB(CURDATE(), INTERVAL 6 DAY)
+            AND mc_id = 3
+        GROUP BY 
+            DATE_FORMAT(upload_date, '%Y-%m-%d')
+        ORDER BY 
+            date
+    </select>
+</mapper>

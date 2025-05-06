@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nebulaxy.milimilibackendmain.mapper.ContentMapper">
+
+    <!-- 全部文件查询 -->
+    <select id="selectAllFiles" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content` order by vid desc
+    </select>
+
+    <!--按照vid查询文件-->
+    <select id="selectFiles" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content` where vid = #{vid}
+    </select>
+
+    <!--按照文件名查询文件-->
+    <select id="selectFilesByTitle" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content` where title = #{title}
+    </select>
+
+    <!--新增文件-->
+    <insert id="insertFiles">
+        insert into `content` (uid,title,topic,descr,mc_id,sc_id,tags,video_url,status ,duration ,cover_url)
+        values(#{uid},#{title},#{topic},#{descr},#{mcId},#{scId},#{tags},#{videoUrl},0 ,#{duration},#{coverUrl})
+    </insert>
+
+    <!--按照文件主分区查询文件-->
+    <select id="selectFiles3" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content`
+        <where>
+            mc_id = #{mcId}
+            <if test="title != null">
+            and title like concat('%',#{title},'%')
+            </if>
+            <if test="status != null">
+                and status=#{status}
+            </if>
+            <if test="scId != null">
+                and sc_id=#{scId}
+            </if>
+            <if test="topic != null">
+                and topic=#{topic}
+            </if>
+        </where>
+        order by upload_date desc
+    </select>
+
+    <insert id="insertPost">
+        insert into `post` (topic,title,uid,content,status,url,tag)
+        values(#{topic},#{title},#{uid},#{content},0,#{url},#{tag})
+    </insert>
+
+    <update id="moderation">
+        update `content` set status=#{status} where vid=#{vid}
+    </update>
+
+    <update id="moderationPost">
+        update `post` set status=#{status} where postid=#{postid}
+    </update>
+
+    <!--按照文件主分区查询帖子-->
+    <select id="selectFiles2" resultType="com.nebulaxy.milimilibackendmain.entity.Post">
+        select * from `post`
+        <where>
+            <if test="title != null">
+                and title like concat('%',#{title},'%')
+            </if>
+            <if test="status != null">
+                and status=#{status}
+            </if>
+            <if test="uid != null">
+                and uid=#{uid}
+            </if>
+            <if test="topic != null">
+                and topic=#{topic}
+            </if>
+        </where>
+        order by updatetime desc
+    </select>
+
+
+    <select id="selectPost" resultType="com.nebulaxy.milimilibackendmain.entity.Post">
+        select * from `post` where postid=#{postid}
+    </select>
+
+    <update id="likePost">
+        update `post` set likes=likes+1 where postid=#{postid}
+    </update>
+
+    <update id="unlikePost">
+        update `post` set likes=likes-1 where postid=#{postid}
+    </update>
+
+    <select id="hotPost" resultType="com.nebulaxy.milimilibackendmain.entity.Post">
+        select * from `post` where updatetime >= date_sub(current_date(), interval 7 day)
+        order by likes desc
+        limit 3
+    </select>
+
+    <select id="hotFiles" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content` where upload_date >= date_sub(current_date(), interval 14 day)
+        and mc_id = 3
+        order by upload_date desc
+        limit 4
+    </select>
+
+    <select id="hotVideos" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content` where upload_date >= date_sub(current_date(), interval 14 day)
+        and mc_id = 1
+        order by upload_date desc
+        limit 4
+    </select>
+
+    <insert id="favorites">
+        insert into `favorites` (uid,vid)
+        values(#{uid},#{vid})
+    </insert>
+
+    <select id="selectFavorites" resultType="com.nebulaxy.milimilibackendmain.entity.Favorites">
+        select * from `favorites` where uid = #{uid} and vid = #{vid}
+    </select>
+
+    <delete id="unFavorites">
+        delete from `favorites` where uid = #{uid} and vid = #{vid}
+    </delete>
+
+    <select id="selectAllFavorites" resultType="com.nebulaxy.milimilibackendmain.entity.Favorites">
+        select * from `favorites`
+        <where>
+        <if test="uid != null">
+            uid = #{uid}
+        </if>
+        <if test="vid != null">
+            and vid = #{vid}
+        </if>
+        </where>
+    </select>
+
+    <select id="selectDownloadCount" resultType="com.nebulaxy.milimilibackendmain.entity.Download">
+        select * from `download` where vid = #{vid}
+    </select>
+
+    <insert id="insertDownloadCount">
+        insert into `download` (vid,count) values(#{vid},1)
+    </insert>
+
+    <update id="downloadCount">
+        update `download` set count = count+1 where vid = #{vid}
+    </update>
+
+    <select id="selectAllPost" resultType="com.nebulaxy.milimilibackendmain.entity.Post">
+        select * from `post`
+    </select>
+
+    <select id="findAllFiles" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content`
+        where mc_id = 3 and status = 1
+    </select>
+
+    <!--按照文件主分区查询文件-->
+    <select id="selectFiles1" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        select * from `content`
+        <where>
+            mc_id = #{mcId} and title like concat('%',#{title},'%')
+            <if test="state != null">
+                and status=#{state}
+            </if>
+            <if test="scId != null">
+                and sc_id = #{scId}
+            </if>
+        </where>
+        order by upload_date desc
+    </select>
+
+    <select id="selectPostsByTitleKeyword" resultType="com.nebulaxy.milimilibackendmain.entity.Post">
+        SELECT * FROM `post`
+        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+          AND status = 1
+        ORDER BY updatetime DESC
+    </select>
+
+    <select id="selectLessonsByTitleKeyword" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        SELECT * FROM `content`
+        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        AND mc_id = 1
+        AND status = 1
+        ORDER BY upload_date DESC
+    </select>
+
+    <select id="selectFilesByTitleKeyword" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        SELECT * FROM `content`
+        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        AND mc_id = 3
+        AND status = 1
+        ORDER BY upload_date DESC
+    </select>
+
+</mapper>

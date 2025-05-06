@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nebulaxy.milimilibackendmain.mapper.CommentMapper">
+
+
+    <insert id="insertComment">
+        insert into `comments` (vid,uid,root_id,parent_id,to_user_id,content)
+        values(#{vid},#{uid},#{rootId},#{parentId},#{toUserId},#{content})
+    </insert>
+
+    <select id="selectCommentAll" resultType="com.nebulaxy.milimilibackendmain.entity.Comment">
+        select * from `comments` where id = #{id}
+    </select>
+
+    <select id="selectCommentByVid" resultType="com.nebulaxy.milimilibackendmain.entity.Comment">
+        select * from `comments` where vid = #{vid}
+    </select>
+
+    <insert id="insertReply" >
+
+
+    </insert>
+
+    <update id="like">
+        update `comments` set love=love+1 where id=#{id}
+    </update>
+
+    <update id="unlike">
+        update `comments` set love=love-1 where id=#{id}
+    </update>
+</mapper>
