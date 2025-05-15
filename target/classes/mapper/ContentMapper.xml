@@ -95,21 +95,21 @@
     <select id="hotPost" resultType="com.nebulaxy.milimilibackendmain.entity.Post">
         select * from `post` where updatetime >= date_sub(current_date(), interval 7 day)
         order by likes desc
-        limit 3
+        limit 9
     </select>
 
     <select id="hotFiles" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
         select * from `content` where upload_date >= date_sub(current_date(), interval 14 day)
         and mc_id = 3
         order by upload_date desc
-        limit 4
+        limit 9
     </select>
 
     <select id="hotVideos" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
         select * from `content` where upload_date >= date_sub(current_date(), interval 14 day)
         and mc_id = 1
         order by upload_date desc
-        limit 4
+        limit 8
     </select>
 
     <insert id="favorites">

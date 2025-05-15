@@ -14,6 +14,7 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="D:/software/apache-maven-3.8.8-bin/apache-maven-3.8.8/repo/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="D:/software/apache-maven-3.8.8-bin/apache-maven-3.8.8/repo/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
         </processorPath>
         <module name="milimili-backend-main" />
       </profile>
