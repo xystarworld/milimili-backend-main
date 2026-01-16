@@ -95,21 +95,21 @@
     <select id="hotPost" resultType="com.nebulaxy.milimilibackendmain.entity.Post">
         select * from `post` where updatetime >= date_sub(current_date(), interval 7 day)
         order by likes desc
-        limit 9
+        limit 3
     </select>
 
     <select id="hotFiles" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
         select * from `content` where upload_date >= date_sub(current_date(), interval 14 day)
         and mc_id = 3
         order by upload_date desc
-        limit 9
+        limit 4
     </select>
 
     <select id="hotVideos" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
         select * from `content` where upload_date >= date_sub(current_date(), interval 14 day)
         and mc_id = 1
         order by upload_date desc
-        limit 8
+        limit 4
     </select>
 
     <insert id="favorites">
@@ -177,23 +177,21 @@
         SELECT * FROM `post`
         WHERE title LIKE CONCAT('%', #{keyword}, '%')
           AND status = 1
-        ORDER BY updatetime DESC
-    </select>
 
-    <select id="selectLessonsByTitleKeyword" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
-        SELECT * FROM `content`
-        WHERE title LIKE CONCAT('%', #{keyword}, '%')
-        AND mc_id = 1
-        AND status = 1
-        ORDER BY upload_date DESC
     </select>
-
     <select id="selectFilesByTitleKeyword" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
         SELECT * FROM `content`
         WHERE title LIKE CONCAT('%', #{keyword}, '%')
-        AND mc_id = 3
         AND status = 1
-        ORDER BY upload_date DESC
+        AND mc_id = 1
+
+    </select>
+    <select id="selectLessonsByTitleKeyword" resultType="com.nebulaxy.milimilibackendmain.entity.Content">
+        SELECT * FROM `content`
+        WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        AND status = 1
+        AND mc_id = 3
+
     </select>
 
 </mapper>
