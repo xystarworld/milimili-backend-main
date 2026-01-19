@@ -7,8 +7,8 @@
 
 ## 项目地址
 ### 后端代码：
-[](https://github.com/xystarworld/milimili-backend-main)
+[MiliMili大学生在线学习教育平台——后端代码](https://github.com/xystarworld/milimili-backend-main)
 ### 前端代码
-- **管理端**：
-- **客户端**：
+- **管理端**：[MiliMili大学生在线学习教育平台——前端管理端代码](https://github.com/xystarworld/milimili_vue_admin)
+- **客户端**：[MiliMili大学生在线学习教育平台——前端用户端代码](https://github.com/xystarworld/milimili_vue)
 
