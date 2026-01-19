@@ -12,3 +12,28 @@
 - **管理端**：[MiliMili大学生在线学习教育平台——前端管理端代码](https://github.com/xystarworld/milimili_vue_admin)
 - **客户端**：[MiliMili大学生在线学习教育平台——前端用户端代码](https://github.com/xystarworld/milimili_vue)
 
+## 技术栈
+- 前端（web端）：
+  - Vue3全家桶 + Element-Plus + Axios等
+- 后端（服务端）：
+  - SpringBoot3 + MyBatis + JWT + IKAnalyzer等
+- 数据库：
+  - MySQL + lucene
+- 开发环境：
+  - NodeJs: 22.12.0 + JDK: 1.8
+
+## 项目功能
+- 首页内容个性化推荐
+- 用户注册登录
+- 用户权限鉴别
+- 个人中心信息修改
+- 视频投稿
+- 帖子提交
+- 文件上传
+- 视频帖子文件审核
+- 内容搜索
+- 评论系统（含多级评论）
+- 点赞收藏系统
+- 个人课程表系统
+
+## 界面展示
